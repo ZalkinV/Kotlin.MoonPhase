@@ -3,6 +3,7 @@ package com.itmo.moonphase
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.itmo.moonphase.databinding.ActivityMainBinding
 import okhttp3.*
 import java.io.IOException
 
@@ -12,10 +13,13 @@ class MainActivity : AppCompatActivity() {
     // Using OkHttp https://guides.codepath.com/android/Using-OkHttp
     // Kotlin on Android development: Image download & display using OkHttp https://www.youtube.com/watch?v=HzPmbzIVxDo
     private val httpClient = OkHttpClient()
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val request = Request.Builder()
             .url(Consts.MOON_PHASE_URL)
