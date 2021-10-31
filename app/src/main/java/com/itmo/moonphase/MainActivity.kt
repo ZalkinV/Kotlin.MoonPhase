@@ -3,6 +3,9 @@ package com.itmo.moonphase
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.google.gson.FieldNamingPolicy
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.itmo.moonphase.Consts.MOON_PHASE_URL
 import com.itmo.moonphase.databinding.ActivityMainBinding
 import okhttp3.*
@@ -13,11 +16,15 @@ import java.time.ZoneId
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
+
     // OkHttp Recipes https://square.github.io/okhttp/recipes/#asynchronous-get-kt-java
     // Using OkHttp https://guides.codepath.com/android/Using-OkHttp
     // Kotlin on Android development: Image download & display using OkHttp https://www.youtube.com/watch?v=HzPmbzIVxDo
     private val httpClient = OkHttpClient()
-    private lateinit var binding: ActivityMainBinding
+    private val gson = GsonBuilder()
+        .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
+        .create()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,9 +51,10 @@ class MainActivity : AppCompatActivity() {
             override fun onResponse(call: Call, response: Response) {
                 val responseText = response.body?.string() ?: "No response"
                 Log.i("MOON", responseText)
-                
+                val moonPhases = gson.fromJson(responseText, Array<MoonPhaseResponse>::class.java)
+
                 runOnUiThread {
-                    binding.textView.text = responseText
+                    binding.textView.text = moonPhases[0].toString()
                 }
             }
         })
