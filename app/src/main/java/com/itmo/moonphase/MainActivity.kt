@@ -8,6 +8,8 @@ import com.itmo.moonphase.databinding.ActivityMainBinding
 import okhttp3.*
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import java.io.IOException
+import java.time.LocalDateTime
+import java.time.ZoneId
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,9 +25,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val currentDateTime = LocalDateTime.now().atZone(ZoneId.systemDefault())
         val requestUrl = MOON_PHASE_URL.toHttpUrlOrNull()!!
             .newBuilder()
-            .addQueryParameter("d", System.currentTimeMillis().toString())
+            .addQueryParameter("d", currentDateTime.toEpochSecond().toString())
             .build()
 
         val request = Request.Builder()
