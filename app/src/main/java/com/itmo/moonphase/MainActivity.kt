@@ -32,7 +32,12 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onResponse(call: Call, response: Response) {
-                Log.i("MOON", response.body?.string() ?: "")
+                val responseText = response.body?.string() ?: "No response"
+                Log.i("MOON", responseText)
+                
+                runOnUiThread {
+                    binding.textView.text = responseText
+                }
             }
         })
     }
