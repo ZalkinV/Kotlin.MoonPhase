@@ -3,8 +3,10 @@ package com.itmo.moonphase
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.itmo.moonphase.Consts.MOON_PHASE_URL
 import com.itmo.moonphase.databinding.ActivityMainBinding
 import okhttp3.*
+import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
@@ -21,8 +23,13 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val requestUrl = MOON_PHASE_URL.toHttpUrlOrNull()!!
+            .newBuilder()
+            .addQueryParameter("d", System.currentTimeMillis().toString())
+            .build()
+
         val request = Request.Builder()
-            .url(Consts.MOON_PHASE_URL)
+            .url(requestUrl)
             .get()
             .build()
 
