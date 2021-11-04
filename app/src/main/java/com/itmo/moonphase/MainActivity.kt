@@ -4,15 +4,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.google.gson.FieldNamingPolicy
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.itmo.moonphase.Consts.MOON_PHASE_URL
 import com.itmo.moonphase.databinding.ActivityMainBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.*
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
-import java.io.IOException
 import java.time.LocalDateTime
 import java.time.ZoneId
+import java.time.ZonedDateTime
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,9 +36,20 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val currentDateTime = LocalDateTime.now().atZone(ZoneId.systemDefault())
+
+        GlobalScope.launch(Dispatchers.IO) {
+            val moonPhases = getMoonPhases(currentDateTime)
+            runOnUiThread {
+                binding.textView.text = moonPhases[0].toString()
+            }
+        }
+    }
+
+    @Suppress("BlockingMethodInNonBlockingContext")
+    private suspend fun getMoonPhases(startDate: ZonedDateTime) = withContext(Dispatchers.IO) {
         val requestUrl = MOON_PHASE_URL.toHttpUrlOrNull()!!
             .newBuilder()
-            .addQueryParameter("d", currentDateTime.toEpochSecond().toString())
+            .addQueryParameter("d", startDate.toEpochSecond().toString())
             .build()
 
         val request = Request.Builder()
@@ -43,20 +57,10 @@ class MainActivity : AppCompatActivity() {
             .get()
             .build()
 
-        httpClient.newCall(request).enqueue(object: Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                e.printStackTrace()
-            }
+        val response = httpClient.newCall(request).execute()
+        val responseText = response.body?.string() ?: "No response"
+        Log.i("MOON", responseText)
 
-            override fun onResponse(call: Call, response: Response) {
-                val responseText = response.body?.string() ?: "No response"
-                Log.i("MOON", responseText)
-                val moonPhases = gson.fromJson(responseText, Array<MoonPhaseResponse>::class.java)
-
-                runOnUiThread {
-                    binding.textView.text = moonPhases[0].toString()
-                }
-            }
-        })
+        gson.fromJson(responseText, Array<MoonPhaseResponse>::class.java).toList()
     }
 }
