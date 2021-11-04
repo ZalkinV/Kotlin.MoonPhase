@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_moonPhase_date"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/listItem_margin_small"
+        android:text="@string/moonPhase_date"
+        app:layout_constraintBottom_toBottomOf="@+id/img_moonPhase"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/img_moonPhase" />
+
+    <ImageView
+        android:id="@+id/img_moonPhase"
+        android:layout_width="@dimen/listItem_height"
+        android:layout_height="@dimen/listItem_height"
+        android:layout_margin="@dimen/listItem_margin_small"
+        app:layout_constraintStart_toEndOf="@+id/tv_moonPhase_date"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription,ImageContrastCheck"
+        tools:srcCompat="@tools:sample/avatars" />
+
+
+    <TextView
+        android:id="@+id/tv_moonPhase_name"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/listItem_margin_small"
+        android:text="@string/moonPhase_name_default"
+        app:layout_constraintStart_toEndOf="@+id/img_moonPhase"
+        app:layout_constraintTop_toTopOf="@+id/img_moonPhase" />
+
+    <TextView
+        android:id="@+id/lbl_moonPhase_age"
+        style="@style/TextAppearance.AppCompat.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/listItem_margin_medium"
+        android:labelFor="@id/tv_moonPhase_age"
+        android:text="@string/moonPhase_age_label"
+        app:layout_constraintStart_toStartOf="@+id/tv_moonPhase_name"
+        app:layout_constraintTop_toBottomOf="@+id/tv_moonPhase_name" />
+
+
+    <TextView
+        android:id="@+id/tv_moonPhase_age"
+        style="@style/TextAppearance.AppCompat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/listItem_margin_small"
+        android:text="@string/moonPhase_age_default"
+        app:layout_constraintBottom_toBottomOf="@+id/lbl_moonPhase_age"
+        app:layout_constraintStart_toEndOf="@+id/lbl_moonPhase_age"
+        app:layout_constraintTop_toTopOf="@+id/lbl_moonPhase_age" />
+
+    <TextView
+        android:id="@+id/lbl_moonPhase_illumination"
+        style="@style/TextAppearance.AppCompat.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/listItem_margin_small"
+        android:labelFor="@id/tv_moonPhase_illumination"
+        android:text="@string/moonPhase_illumination_label"
+        app:layout_constraintStart_toStartOf="@+id/lbl_moonPhase_age"
+        app:layout_constraintTop_toBottomOf="@+id/lbl_moonPhase_age" />
+
+    <TextView
+        android:id="@+id/tv_moonPhase_illumination"
+        style="@style/TextAppearance.AppCompat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/listItem_margin_small"
+        android:text="@string/moonPhase_illumination_default"
+        app:layout_constraintBottom_toBottomOf="@+id/lbl_moonPhase_illumination"
+        app:layout_constraintStart_toEndOf="@+id/lbl_moonPhase_illumination"
+        app:layout_constraintTop_toTopOf="@+id/lbl_moonPhase_illumination" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
