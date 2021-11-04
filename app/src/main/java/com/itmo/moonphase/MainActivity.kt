@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         val currentDateTime = LocalDateTime.now().atZone(ZoneId.systemDefault())
 
         GlobalScope.launch(Dispatchers.IO) {
-            val moonPhases = getMoonPhases(currentDateTime)
+            val moonPhases = getMoonPhases(currentDateTime, currentDateTime.plusDays(Consts.FORECAST_DURATION_DAYS))
             runOnUiThread {
                 binding.textView.text = moonPhases[0].toString()
             }
@@ -46,11 +46,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     @Suppress("BlockingMethodInNonBlockingContext")
-    private suspend fun getMoonPhases(startDate: ZonedDateTime) = withContext(Dispatchers.IO) {
-        val requestUrl = MOON_PHASE_URL.toHttpUrlOrNull()!!
-            .newBuilder()
-            .addQueryParameter("d", startDate.toEpochSecond().toString())
-            .build()
+    private suspend fun getMoonPhases(
+        startDate: ZonedDateTime,
+        endDate: ZonedDateTime = startDate) = withContext(Dispatchers.IO) {
+
+        val requestUrlBuilder = MOON_PHASE_URL.toHttpUrlOrNull()!!.newBuilder()
+
+        var currentDate = startDate
+        while (currentDate <= endDate) {
+            requestUrlBuilder.addQueryParameter("d[]", currentDate.toEpochSecond().toString())
+            currentDate = currentDate.plusDays(1)
+        }
+
+        val requestUrl = requestUrlBuilder.build()
 
         val request = Request.Builder()
             .url(requestUrl)
