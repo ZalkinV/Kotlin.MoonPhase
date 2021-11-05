@@ -46,14 +46,8 @@ class MainActivity : AppCompatActivity() {
 
             runOnUiThread {
                 binding.rvMoonPhases.adapter = MoonPhaseAdapter(
-                    moonPhases.map { MoonPhaseInfo(
-                        Instant.ofEpochSecond(it.targetDate).atZone(ZoneId.systemDefault()),
-                        getMoonPhaseImage(it.phase),
-                        it.phase,
-                        it.age,
-                        it.illumination
-                    ) },
-                baseContext)
+                    moonPhases.map { it.toEntity() },
+                    baseContext)
             }
         }
     }
@@ -65,18 +59,6 @@ class MainActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(baseContext)
             setHasFixedSize(true)
         }
-    }
-
-    private fun getMoonPhaseImage(moonPhaseName: String) = when(moonPhaseName) {
-        getString(R.string.moonPhase_newMoon) -> R.drawable.emoji_new_moon
-        getString(R.string.moonPhase_waxingCrescent) -> R.drawable.emoji_waxing_crescent
-        getString(R.string.moonPhase_firstQuarter) -> R.drawable.emoji_first_quarter
-        getString(R.string.moonPhase_waxingGibbous) -> R.drawable.emoji_waxing_gibbous
-        getString(R.string.moonPhase_fullMoon) -> R.drawable.emoji_full_moon
-        getString(R.string.moonPhase_waningGibbous) -> R.drawable.emoji_wanning_gibbous
-        getString(R.string.moonPhase_lastQuarter) -> R.drawable.emoji_last_quarter
-        getString(R.string.moonPhase_waningCrescent) -> R.drawable.emoji_wanning_crescent
-        else -> R.drawable.ic_launcher_background
     }
 
     @Suppress("BlockingMethodInNonBlockingContext")
