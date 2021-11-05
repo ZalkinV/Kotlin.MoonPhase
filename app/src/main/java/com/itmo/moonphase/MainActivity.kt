@@ -2,16 +2,23 @@ package com.itmo.moonphase
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.itmo.moonphase.api.farmsense.MoonPhaseProviderFarmsense
 import com.itmo.moonphase.databinding.ActivityMainBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.lang.RuntimeException
 import java.time.LocalDateTime
 import java.time.ZoneId
 
 class MainActivity : AppCompatActivity() {
+
+    companion object {
+        const val LOG_TAG = "MOON_MAIN"
+    }
 
     private lateinit var binding: ActivityMainBinding
 
@@ -26,11 +33,18 @@ class MainActivity : AppCompatActivity() {
         initializeComponents()
 
         GlobalScope.launch(Dispatchers.IO) {
-            val currentDateTime = LocalDateTime.now().atZone(ZoneId.systemDefault())
-            val moonPhases = moonPhaseProvider.getMoonPhases(currentDateTime, currentDateTime.plusDays(Consts.FORECAST_DURATION_DAYS))
+            try {
+                val currentDateTime = LocalDateTime.now().atZone(ZoneId.systemDefault())
+                val moonPhases = moonPhaseProvider.getMoonPhases(currentDateTime, currentDateTime.plusDays(Consts.FORECAST_DURATION_DAYS))
 
-            runOnUiThread {
-                binding.rvMoonPhases.adapter = MoonPhaseAdapter(baseContext, moonPhases)
+                runOnUiThread {
+                    binding.rvMoonPhases.adapter = MoonPhaseAdapter(baseContext, moonPhases)
+                }
+            } catch (e: RuntimeException) {
+                Log.e(LOG_TAG, "Message: ${e.message}\nStacktrace: ${e.stackTraceToString()}")
+                runOnUiThread {
+                    Toast.makeText(baseContext, "Error: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
+                }
             }
         }
     }

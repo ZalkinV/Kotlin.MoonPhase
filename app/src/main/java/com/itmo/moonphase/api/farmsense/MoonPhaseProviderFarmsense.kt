@@ -9,6 +9,8 @@ import kotlinx.coroutines.withContext
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import java.io.IOException
+import java.lang.RuntimeException
 import java.time.ZonedDateTime
 
 class MoonPhaseProviderFarmsense : MoonPhaseProvider {
@@ -42,7 +44,9 @@ class MoonPhaseProviderFarmsense : MoonPhaseProvider {
             .build()
 
         val response = httpClient.newCall(request).execute()
-        val responseText = response.body?.string() ?: "No response"
+
+        if (!response.isSuccessful) throw IOException("No response from API")
+        val responseText = response.body?.string() ?: throw IOException("No response body from API")
         Log.i("MOON", responseText)
 
         val moonPhasesResponse = gson.fromJson(responseText, Array<MoonPhaseResponse>::class.java).toList()
