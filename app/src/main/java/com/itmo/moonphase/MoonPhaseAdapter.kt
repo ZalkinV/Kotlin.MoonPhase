@@ -10,8 +10,8 @@ import java.time.format.DateTimeFormatter
 import kotlin.math.roundToInt
 
 class MoonPhaseAdapter(
-    private val moonPhases: List<MoonPhaseInfo>,
     context: Context,
+    private val moonPhases: List<MoonPhaseInfo>,
 ) : RecyclerView.Adapter<MoonPhaseAdapter.MoonPhaseViewHolder>() {
 
     private val dateTimeFormatter = DateTimeFormatter.ofPattern(context.getString(R.string.moonPhase_dateTime_format))
