@@ -2,6 +2,7 @@ package com.itmo.moonphase.api.farmsense
 
 import com.itmo.moonphase.MoonPhaseEnum
 import com.itmo.moonphase.MoonPhaseInfo
+import java.text.ParseException
 import java.time.Instant
 import java.time.ZoneId
 
@@ -21,5 +22,6 @@ private fun moonPhaseNameToEnum(moonPhaseName: String) = when(moonPhaseName) {
     Consts.WANING_GIBBOUS -> MoonPhaseEnum.WANING_GIBBOUS
     Consts.LAST_QUARTER -> MoonPhaseEnum.LAST_QUARTER
     Consts.WANING_CRESCENT -> MoonPhaseEnum.WANING_CRESCENT
-    else -> throw EnumConstantNotPresentException(MoonPhaseEnum::class.java, "moonPhaseName")
+    Consts.DARK_MOON -> MoonPhaseEnum.NEW_MOON
+    else -> throw IllegalArgumentException("Cannot parse moonPhaseName=$moonPhaseName to ${MoonPhaseEnum::class.java.simpleName}")
 }

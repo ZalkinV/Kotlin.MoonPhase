@@ -12,4 +12,5 @@ object Consts {
     const val WANING_GIBBOUS = "Waning Gibbous"
     const val LAST_QUARTER = "3rd Quarter"
     const val WANING_CRESCENT = "Waning Crescent"
+    const val DARK_MOON = "Dark Moon"
 }
