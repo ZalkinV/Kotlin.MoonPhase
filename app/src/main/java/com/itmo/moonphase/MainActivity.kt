@@ -3,6 +3,7 @@ package com.itmo.moonphase
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 import com.itmo.moonphase.Consts.MOON_PHASE_URL
@@ -35,13 +36,26 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        initializeComponents()
+
         val currentDateTime = LocalDateTime.now().atZone(ZoneId.systemDefault())
 
         GlobalScope.launch(Dispatchers.IO) {
             val moonPhases = getMoonPhases(currentDateTime, currentDateTime.plusDays(Consts.FORECAST_DURATION_DAYS))
+
             runOnUiThread {
-                binding.textView.text = moonPhases[0].toString()
+                binding.rvMoonPhases.adapter = MoonPhaseAdapter(
+                    moonPhases.map { MoonPhaseInfo(it.phase, 0.0, it.illumination) })
             }
+        }
+    }
+
+    private fun initializeComponents() {
+        // RecyclerView https://www.youtube.com/watch?v=cDF_yBCflXk
+        // RecyclerView with ViewBinding https://dev.to/theimpulson/using-recyclerview-with-viewbinding-in-android-via-kotlin-1hgl
+        binding.rvMoonPhases.apply {
+            layoutManager = LinearLayoutManager(baseContext)
+            setHasFixedSize(true)
         }
     }
 
