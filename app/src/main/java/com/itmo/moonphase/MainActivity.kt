@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
                     moonPhases.map { MoonPhaseInfo(
                         getMoonPhaseImage(it.phase),
                         it.phase,
-                        0.0,
+                        it.age,
                         it.illumination
                     ) }
                 )
