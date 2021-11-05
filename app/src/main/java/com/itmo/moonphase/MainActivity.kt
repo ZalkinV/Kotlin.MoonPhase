@@ -14,6 +14,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.*
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
+import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -46,12 +47,13 @@ class MainActivity : AppCompatActivity() {
             runOnUiThread {
                 binding.rvMoonPhases.adapter = MoonPhaseAdapter(
                     moonPhases.map { MoonPhaseInfo(
+                        Instant.ofEpochSecond(it.targetDate).atZone(ZoneId.systemDefault()),
                         getMoonPhaseImage(it.phase),
                         it.phase,
                         it.age,
                         it.illumination
-                    ) }
-                )
+                    ) },
+                baseContext)
             }
         }
     }

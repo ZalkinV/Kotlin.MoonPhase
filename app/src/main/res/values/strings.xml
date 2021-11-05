@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">MoonPhase</string>
-    <string name="moonPhase_date">DD.MM</string>
+    <string name="moonPhase_dateTime_format">dd.MM\nHH:mm</string>
     <string name="moonPhase_name_default">Moon Phase Name</string>
     <string name="moonPhase_age_label">Age:</string>
     <string name="moonPhase_illumination_label">Illumination:</string>
