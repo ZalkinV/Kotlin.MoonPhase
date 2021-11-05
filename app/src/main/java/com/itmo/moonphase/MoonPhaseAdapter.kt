@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.itmo.moonphase.databinding.ListItemMoonPhaseBinding
+import java.text.NumberFormat
 import java.time.format.DateTimeFormatter
 import kotlin.math.roundToInt
 
@@ -14,15 +15,20 @@ class MoonPhaseAdapter(
 ) : RecyclerView.Adapter<MoonPhaseAdapter.MoonPhaseViewHolder>() {
 
     private val dateTimeFormatter = DateTimeFormatter.ofPattern(context.getString(R.string.moonPhase_dateTime_format))
+    private val percentFormatter = NumberFormat.getPercentInstance().apply { minimumFractionDigits = 0 }
 
-    class MoonPhaseViewHolder(private val binding: ListItemMoonPhaseBinding) : RecyclerView.ViewHolder(binding.root) {
+    class MoonPhaseViewHolder(
+        private val binding: ListItemMoonPhaseBinding,
+        private val dateTimeFormatter: DateTimeFormatter,
+        private val percentFormatter: NumberFormat,
+    ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(moonPhaseInfo: MoonPhaseInfo, dateTimeFormatter: DateTimeFormatter) = binding.let { with(moonPhaseInfo) {
+        fun bind(moonPhaseInfo: MoonPhaseInfo) = binding.let { with(moonPhaseInfo) {
             it.tvMoonPhaseDate.text = dateTimeFormatter.format(dateTime)
             it.imgMoonPhase.setImageResource(imageResourceId)
             it.tvMoonPhaseName.text = name
             it.tvMoonPhaseAge.text = age.roundToInt().toString()
-            it.tvMoonPhaseIllumination.text = "${(illumination * 100).roundToInt()}%"
+            it.tvMoonPhaseIllumination.text = percentFormatter.format(illumination)
         } }
 
     }
@@ -33,11 +39,11 @@ class MoonPhaseAdapter(
             parent,
             false)
 
-        return MoonPhaseViewHolder(binding)
+        return MoonPhaseViewHolder(binding, dateTimeFormatter, percentFormatter)
     }
 
     override fun onBindViewHolder(holder: MoonPhaseViewHolder, position: Int) =
-        holder.bind(moonPhases[position], dateTimeFormatter)
+        holder.bind(moonPhases[position])
 
     override fun getItemCount() = moonPhases.size
 }
