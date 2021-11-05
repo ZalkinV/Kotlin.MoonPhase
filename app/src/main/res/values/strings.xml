@@ -9,10 +9,10 @@
 
     <string name="moonPhase_newMoon">New Moon</string>
     <string name="moonPhase_waxingCrescent">Waxing Crescent</string>
-    <string name="moonPhase_firstQuarter">1st Quarter</string>
+    <string name="moonPhase_firstQuarter">First Quarter</string>
     <string name="moonPhase_waxingGibbous">Waxing Gibbous</string>
     <string name="moonPhase_fullMoon">Full Moon</string>
     <string name="moonPhase_waningGibbous">Waning Gibbous</string>
-    <string name="moonPhase_lastQuarter">3rd Quarter"</string>
+    <string name="moonPhase_lastQuarter">Third Quarter"</string>
     <string name="moonPhase_waningCrescent">Waning Crescent</string>
 </resources>

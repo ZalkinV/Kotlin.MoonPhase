@@ -25,7 +25,7 @@ class MoonPhaseProviderFarmsense : MoonPhaseProvider {
         startDate: ZonedDateTime,
         endDate: ZonedDateTime) = withContext(Dispatchers.IO) {
 
-        val requestUrlBuilder = Consts.FARMSENSE_MOON_PHASE_URL.toHttpUrlOrNull()!!.newBuilder()
+        val requestUrlBuilder = Consts.Farmsense.MOON_PHASE_URL.toHttpUrlOrNull()!!.newBuilder()
 
         var currentDate = startDate
         while (currentDate <= endDate) {

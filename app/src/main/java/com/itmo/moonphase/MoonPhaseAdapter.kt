@@ -25,22 +25,32 @@ class MoonPhaseAdapter(
 
         fun bind(moonPhaseInfo: MoonPhaseInfo) = binding.let { with(moonPhaseInfo) {
             it.tvMoonPhaseDate.text = dateTimeFormatter.format(dateTime)
-            it.imgMoonPhase.setImageResource(getMoonPhaseImage(name))
-            it.tvMoonPhaseName.text = name
+            it.imgMoonPhase.setImageResource(getMoonPhaseImage(phase))
+            it.tvMoonPhaseName.text = getMoonPhaseName(phase)
             it.tvMoonPhaseAge.text = age.roundToInt().toString()
             it.tvMoonPhaseIllumination.text = percentFormatter.format(illumination)
         } }
 
-        private fun getMoonPhaseImage(moonPhaseName: String) = with(binding.root.context) { when(moonPhaseName) {
-            getString(R.string.moonPhase_newMoon) -> R.drawable.emoji_new_moon
-            getString(R.string.moonPhase_waxingCrescent) -> R.drawable.emoji_waxing_crescent
-            getString(R.string.moonPhase_firstQuarter) -> R.drawable.emoji_first_quarter
-            getString(R.string.moonPhase_waxingGibbous) -> R.drawable.emoji_waxing_gibbous
-            getString(R.string.moonPhase_fullMoon) -> R.drawable.emoji_full_moon
-            getString(R.string.moonPhase_waningGibbous) -> R.drawable.emoji_wanning_gibbous
-            getString(R.string.moonPhase_lastQuarter) -> R.drawable.emoji_last_quarter
-            getString(R.string.moonPhase_waningCrescent) -> R.drawable.emoji_wanning_crescent
-            else -> R.drawable.ic_launcher_background
+        private fun getMoonPhaseImage(moonPhase: MoonPhaseEnum) = when(moonPhase) {
+            MoonPhaseEnum.NEW_MOON -> R.drawable.emoji_new_moon
+            MoonPhaseEnum.WAXING_CRESCENT -> R.drawable.emoji_waxing_crescent
+            MoonPhaseEnum.FIRST_QUARTER -> R.drawable.emoji_first_quarter
+            MoonPhaseEnum.WAXING_GIBBOUS -> R.drawable.emoji_waxing_gibbous
+            MoonPhaseEnum.FULL_MOON -> R.drawable.emoji_full_moon
+            MoonPhaseEnum.WANING_GIBBOUS -> R.drawable.emoji_wanning_gibbous
+            MoonPhaseEnum.LAST_QUARTER -> R.drawable.emoji_last_quarter
+            MoonPhaseEnum.WANING_CRESCENT -> R.drawable.emoji_wanning_crescent
+        }
+
+        private fun getMoonPhaseName(moonPhase: MoonPhaseEnum) = with(binding.root.context) { when(moonPhase) {
+            MoonPhaseEnum.NEW_MOON -> getString(R.string.moonPhase_newMoon)
+            MoonPhaseEnum.WAXING_CRESCENT -> getString(R.string.moonPhase_waxingCrescent)
+            MoonPhaseEnum.FIRST_QUARTER -> getString(R.string.moonPhase_firstQuarter)
+            MoonPhaseEnum.WAXING_GIBBOUS -> getString(R.string.moonPhase_waxingGibbous)
+            MoonPhaseEnum.FULL_MOON -> getString(R.string.moonPhase_fullMoon)
+            MoonPhaseEnum.WANING_GIBBOUS -> getString(R.string.moonPhase_waningGibbous)
+            MoonPhaseEnum.LAST_QUARTER -> getString(R.string.moonPhase_lastQuarter)
+            MoonPhaseEnum.WANING_CRESCENT -> getString(R.string.moonPhase_waningCrescent)
         } }
 
     }

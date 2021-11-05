@@ -4,7 +4,7 @@ import java.time.ZonedDateTime
 
 class MoonPhaseInfo(
     val dateTime: ZonedDateTime,
-    val name: String,
+    val phase: MoonPhaseEnum,
     val age: Double,
     val illumination: Double,
 )
