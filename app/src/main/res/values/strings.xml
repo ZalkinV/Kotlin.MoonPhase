@@ -6,4 +6,13 @@
     <string name="moonPhase_illumination_label">Illumination:</string>
     <string name="moonPhase_age_default">10</string>
     <string name="moonPhase_illumination_default">100%</string>
+
+    <string name="moonPhase_newMoon">New Moon</string>
+    <string name="moonPhase_waxingCrescent">Waxing Crescent</string>
+    <string name="moonPhase_firstQuarter">1st Quarter</string>
+    <string name="moonPhase_waxingGibbous">Waxing Gibbous</string>
+    <string name="moonPhase_fullMoon">Full Moon</string>
+    <string name="moonPhase_waningGibbous">Waning Gibbous</string>
+    <string name="moonPhase_lastQuarter">3rd Quarter"</string>
+    <string name="moonPhase_waningCrescent">Waning Crescent</string>
 </resources>

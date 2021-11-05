@@ -10,11 +10,12 @@ class MoonPhaseAdapter(private val moonPhases: List<MoonPhaseInfo>) : RecyclerVi
 
     class MoonPhaseViewHolder(private val binding: ListItemMoonPhaseBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(moonPhaseInfo: MoonPhaseInfo) = with(binding) {
-            tvMoonPhaseName.text = moonPhaseInfo.name
-            tvMoonPhaseAge.text = moonPhaseInfo.age.roundToInt().toString()
-            tvMoonPhaseIllumination.text = "${(moonPhaseInfo.illumination * 100).roundToInt()}%"
-        }
+        fun bind(moonPhaseInfo: MoonPhaseInfo) = binding.let { with(moonPhaseInfo) {
+            it.imgMoonPhase.setImageResource(imageResourceId)
+            it.tvMoonPhaseName.text = name
+            it.tvMoonPhaseAge.text = age.roundToInt().toString()
+            it.tvMoonPhaseIllumination.text = "${(illumination * 100).roundToInt()}%"
+        } }
 
     }
 
