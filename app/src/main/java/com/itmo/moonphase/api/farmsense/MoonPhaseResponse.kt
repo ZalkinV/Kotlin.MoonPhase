@@ -1,4 +1,4 @@
-package com.itmo.moonphase
+package com.itmo.moonphase.api.farmsense
 
 data class MoonPhaseResponse(
     val targetDate: Long = 0L,

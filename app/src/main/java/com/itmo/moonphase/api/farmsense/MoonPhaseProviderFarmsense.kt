@@ -1,8 +1,9 @@
-package com.itmo.moonphase
+package com.itmo.moonphase.api.farmsense
 
 import android.util.Log
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
+import com.itmo.moonphase.MoonPhaseProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
@@ -25,7 +26,7 @@ class MoonPhaseProviderFarmsense : MoonPhaseProvider {
         startDate: ZonedDateTime,
         endDate: ZonedDateTime) = withContext(Dispatchers.IO) {
 
-        val requestUrlBuilder = Consts.Farmsense.MOON_PHASE_URL.toHttpUrlOrNull()!!.newBuilder()
+        val requestUrlBuilder = Consts.MOON_PHASE_URL.toHttpUrlOrNull()!!.newBuilder()
 
         var currentDate = startDate
         while (currentDate <= endDate) {

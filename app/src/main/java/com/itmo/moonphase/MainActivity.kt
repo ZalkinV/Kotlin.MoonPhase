@@ -3,6 +3,7 @@ package com.itmo.moonphase
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.itmo.moonphase.api.farmsense.MoonPhaseProviderFarmsense
 import com.itmo.moonphase.databinding.ActivityMainBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
