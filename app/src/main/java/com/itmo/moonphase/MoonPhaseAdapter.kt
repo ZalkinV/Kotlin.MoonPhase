@@ -38,7 +38,7 @@ class MoonPhaseAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(moonPhaseInfo: MoonPhaseInfo) = binding.let { with(moonPhaseInfo) {
-            getMoonPhaseResource(phase).let { mpr ->
+            MoonPhaseResource.getMoonPhaseResource(phase).let { mpr ->
                 it.imgMoonPhase.setImageResource(mpr.imageId)
                 it.tvMoonPhaseName.text = it.root.context.getString(mpr.nameId)
             }
@@ -47,19 +47,6 @@ class MoonPhaseAdapter(
             it.tvMoonPhaseAge.text = age.roundToInt().toString()
             it.tvMoonPhaseIllumination.text = percentFormatter.format(illumination)
         } }
-
-        private fun getMoonPhaseResource(moonPhase: MoonPhaseEnum) = when(moonPhase) {
-            MoonPhaseEnum.NEW_MOON -> MoonPhaseResource(R.drawable.emoji_new_moon, R.string.moonPhase_newMoon)
-            MoonPhaseEnum.WAXING_CRESCENT -> MoonPhaseResource(R.drawable.emoji_waxing_crescent, R.string.moonPhase_waxingCrescent)
-            MoonPhaseEnum.FIRST_QUARTER -> MoonPhaseResource(R.drawable.emoji_first_quarter, R.string.moonPhase_firstQuarter)
-            MoonPhaseEnum.WAXING_GIBBOUS -> MoonPhaseResource(R.drawable.emoji_waxing_gibbous, R.string.moonPhase_waxingGibbous)
-            MoonPhaseEnum.FULL_MOON -> MoonPhaseResource(R.drawable.emoji_full_moon, R.string.moonPhase_fullMoon)
-            MoonPhaseEnum.WANING_GIBBOUS -> MoonPhaseResource(R.drawable.emoji_wanning_gibbous, R.string.moonPhase_waningGibbous)
-            MoonPhaseEnum.LAST_QUARTER -> MoonPhaseResource(R.drawable.emoji_last_quarter, R.string.moonPhase_lastQuarter)
-            MoonPhaseEnum.WANING_CRESCENT -> MoonPhaseResource(R.drawable.emoji_wanning_crescent, R.string.moonPhase_waningCrescent)
-        }
-
-        data class MoonPhaseResource(val imageId: Int, val nameId: Int)
 
     }
 }
