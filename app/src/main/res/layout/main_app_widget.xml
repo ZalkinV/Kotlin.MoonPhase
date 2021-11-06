@@ -1,5 +1,4 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -11,8 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textAlignment="center"
-        tools:text="01.10" />
+        android:text="@string/moonPhase_dateTime_format"
+        android:textAlignment="center" />
 
     <ImageView
         android:id="@+id/wd_img_moonPhase"
@@ -20,13 +19,7 @@
         android:layout_height="@dimen/widget_image_height"
         android:layout_gravity="center"
         android:layout_weight="1"
-        tools:srcCompat="@drawable/emoji_wanning_crescent" />
+        android:background="@drawable/emoji_full_moon"
+        tools:ignore="ContentDescription,ImageContrastCheck" />
 
-    <TextView
-        android:id="@+id/wd_tv_moonPhase"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textAlignment="center"
-        tools:text="@string/moonPhase_waningCrescent" />
 </LinearLayout>
