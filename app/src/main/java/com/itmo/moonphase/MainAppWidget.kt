@@ -8,8 +8,6 @@ import android.content.Intent
 import android.widget.RemoteViews
 import com.itmo.moonphase.api.farmsense.MoonPhaseProviderFarmsense
 import kotlinx.coroutines.*
-import java.time.LocalDateTime
-import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
 // Android App Widgets Tutorial (Coffee Log) https://www.raywenderlich.com/33-android-app-widgets-tutorial
@@ -47,7 +45,7 @@ internal fun updateAppWidget(
     }
 
     CoroutineScope(Dispatchers.Main).launch {
-        val currentDateTime = LocalDateTime.now().atZone(ZoneId.systemDefault())
+        val currentDateTime = getDateTimeNow()
         val moonPhases = moonPhaseProvider.getMoonPhases(currentDateTime)
 
         val moonPhase = moonPhases[0]
