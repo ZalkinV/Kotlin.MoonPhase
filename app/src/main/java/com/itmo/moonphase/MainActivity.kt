@@ -16,7 +16,7 @@ import java.time.ZoneId
 class MainActivity : AppCompatActivity() {
 
     companion object {
-        const val LOG_TAG = "MOON_MAIN"
+        private const val LOG_TAG = "MOON_MAIN"
     }
 
     private lateinit var binding: ActivityMainBinding
@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
                     binding.rvMoonPhases.adapter = MoonPhaseAdapter(baseContext, moonPhases)
                 }
             } catch (e: RuntimeException) {
-                Log.e(LOG_TAG, "Message: ${e.message}\nStacktrace: ${e.stackTraceToString()}")
+                e.log(LOG_TAG)
                 runOnUiThread {
                     Toast.makeText(baseContext, "Error: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
                 }
