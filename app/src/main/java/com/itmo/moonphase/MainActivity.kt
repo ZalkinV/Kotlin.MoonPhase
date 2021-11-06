@@ -2,17 +2,17 @@ package com.itmo.moonphase
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.itmo.moonphase.api.farmsense.MoonPhaseProviderFarmsense
 import com.itmo.moonphase.databinding.ActivityMainBinding
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.lang.RuntimeException
 import java.time.LocalDateTime
 import java.time.ZoneId
 
+// Android Kotlin Coroutine Scope for Activity, Fragment and ViewModel (Architecture Components): https://code.luasoftware.com/tutorials/android/android-kotlin-coroutine-scope-for-activity/
 class MainActivity : AppCompatActivity() {
 
     companion object {
@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
         initializeComponents()
 
-        GlobalScope.launch {
+        lifecycleScope.launch {
             try {
                 val currentDateTime = LocalDateTime.now().atZone(ZoneId.systemDefault())
                 val moonPhases = moonPhaseProvider.getMoonPhases(currentDateTime, currentDateTime.plusDays(Consts.FORECAST_DURATION_DAYS))

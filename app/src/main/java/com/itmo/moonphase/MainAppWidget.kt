@@ -7,8 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.widget.RemoteViews
 import com.itmo.moonphase.api.farmsense.MoonPhaseProviderFarmsense
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -28,8 +27,13 @@ class MainAppWidget : AppWidgetProvider() {
         }
     }
 
+    override fun onDisabled(context: Context?) {
+        super.onDisabled(context)
+    }
+
 }
 
+// Stackoverflow CoroutineScope in AppWidget https://stackoverflow.com/a/58972855
 internal fun updateAppWidget(
     context: Context,
     appWidgetManager: AppWidgetManager,
@@ -42,7 +46,7 @@ internal fun updateAppWidget(
         setOnClickPendingIntent(R.id.wd_layout, getOpenAppPendingIntent(context))
     }
 
-    GlobalScope.launch {
+    CoroutineScope(Dispatchers.Main).launch {
         val currentDateTime = LocalDateTime.now().atZone(ZoneId.systemDefault())
         val moonPhases = moonPhaseProvider.getMoonPhases(currentDateTime)
 
