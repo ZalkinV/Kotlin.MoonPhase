@@ -7,7 +7,6 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.itmo.moonphase.api.farmsense.MoonPhaseProviderFarmsense
 import com.itmo.moonphase.databinding.ActivityMainBinding
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.lang.RuntimeException
@@ -32,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
         initializeComponents()
 
-        GlobalScope.launch(Dispatchers.IO) {
+        GlobalScope.launch {
             try {
                 val currentDateTime = LocalDateTime.now().atZone(ZoneId.systemDefault())
                 val moonPhases = moonPhaseProvider.getMoonPhases(currentDateTime, currentDateTime.plusDays(Consts.FORECAST_DURATION_DAYS))
