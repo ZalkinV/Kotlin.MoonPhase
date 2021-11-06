@@ -1,8 +1,10 @@
 package com.itmo.moonphase
 
+import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
+import android.content.Intent
 import android.widget.RemoteViews
 import com.itmo.moonphase.api.farmsense.MoonPhaseProviderFarmsense
 import kotlinx.coroutines.GlobalScope
@@ -36,7 +38,9 @@ internal fun updateAppWidget(
 ) {
     val dateTimeFormatter = DateTimeFormatter.ofPattern(context.getString(R.string.moonPhase_dateTime_format))
 
-    val views = RemoteViews(context.packageName, R.layout.main_app_widget)
+    val views = RemoteViews(context.packageName, R.layout.main_app_widget).apply {
+        setOnClickPendingIntent(R.id.wd_layout, getOpenAppPendingIntent(context))
+    }
 
     GlobalScope.launch {
         val currentDateTime = LocalDateTime.now().atZone(ZoneId.systemDefault())
@@ -48,4 +52,11 @@ internal fun updateAppWidget(
 
         appWidgetManager.updateAppWidget(appWidgetId, views)
     }
+}
+
+// Всё о PendingIntents https://habr.com/ru/company/otus/blog/560492/
+// What's "requestCode" used for on PendingIntent? https://stackoverflow.com/questions/21526319/whats-requestcode-used-for-on-pendingintent
+private fun getOpenAppPendingIntent(context: Context) : PendingIntent {
+    val intent = Intent(context, MainActivity::class.java)
+    return PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
 }
