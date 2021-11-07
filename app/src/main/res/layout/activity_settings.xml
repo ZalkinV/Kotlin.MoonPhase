@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.SettingsActivity">
+
+    <TextView
+        android:id="@+id/lbl_notification_settings"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/listItem_margin_medium"
+        android:text="@string/settings_notification_lbl_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/listItem_margin_medium"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="@+id/lbl_notification_settings"
+        app:layout_constraintTop_toBottomOf="@+id/lbl_notification_settings">
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/sm_notification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:text="@string/settings_notification_sm_text" />
+
+        <Spinner
+            android:id="@+id/spn_notification_moon_phases"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/listItem_margin_medium"
+            android:layout_weight="1"
+            tools:ignore="SpeakableTextPresentCheck" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
