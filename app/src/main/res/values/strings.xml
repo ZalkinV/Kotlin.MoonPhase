@@ -17,4 +17,6 @@
     <string name="moonPhase_waningCrescent">Waning Crescent</string>
     
     <string name="app_widget_description">This is an app widget description</string>
+
+    <string name="notification_title_format">%1$s has arrived!</string>
 </resources>
