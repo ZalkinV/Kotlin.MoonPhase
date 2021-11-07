@@ -6,6 +6,7 @@ import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
 import android.widget.RemoteViews
+import com.itmo.moonphase.activities.MainActivity
 import com.itmo.moonphase.api.farmsense.MoonPhaseProviderFarmsense
 import kotlinx.coroutines.*
 import java.time.format.DateTimeFormatter

@@ -1,4 +1,4 @@
-package com.itmo.moonphase
+package com.itmo.moonphase.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,6 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
+import com.itmo.moonphase.*
 import com.itmo.moonphase.api.farmsense.MoonPhaseProviderFarmsense
 import com.itmo.moonphase.databinding.ActivityMainBinding
 import com.itmo.moonphase.workers.MoonPhaseWorker
