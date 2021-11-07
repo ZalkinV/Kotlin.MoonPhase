@@ -9,10 +9,4 @@ enum class MoonPhaseEnum(val imageId: Int, val nameId: Int) {
     WANING_GIBBOUS(R.drawable.emoji_wanning_gibbous, R.string.moonPhase_waningGibbous),
     LAST_QUARTER(R.drawable.emoji_last_quarter, R.string.moonPhase_lastQuarter),
     WANING_CRESCENT(R.drawable.emoji_wanning_crescent, R.string.moonPhase_waningCrescent),
-    ;
-    companion object {
-        private val values = values()
-
-        fun valueOf(ordinal: Int) = values.first { it.ordinal == ordinal }
-    }
 }

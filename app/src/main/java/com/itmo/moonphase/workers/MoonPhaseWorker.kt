@@ -45,14 +45,14 @@ class MoonPhaseWorker(
         val isNotificationEnabled = preferences.getBoolean(Preferences.Settings.IS_NOTIFICATION_ENABLED.name, false)
         if (!isNotificationEnabled) return Result.success()
 
-        val moonPhaseToNotify = MoonPhaseEnum.valueOf(preferences.getInt(Preferences.Settings.MOON_PHASE_TO_NOTIFY.name, 0))
+        val moonPhaseToNotifyOrdinal = preferences.getInt(Preferences.Settings.MOON_PHASE_TO_NOTIFY.name, 0)
 
         return try {
             CoroutineScope(Dispatchers.Main).launch {
                 val currentDateTime = getDateTimeNow()
                 val moonPhase = moonPhaseProvider.getMoonPhases(currentDateTime).first()
 
-                if (moonPhase.phase == moonPhaseToNotify)
+                if (moonPhase.phase.ordinal == moonPhaseToNotifyOrdinal)
                     showNotification(appContext, moonPhase)
             }
 
