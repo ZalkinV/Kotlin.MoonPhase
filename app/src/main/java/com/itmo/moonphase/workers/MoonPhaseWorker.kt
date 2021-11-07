@@ -3,6 +3,7 @@ package com.itmo.moonphase.workers
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.work.Worker
@@ -33,12 +34,18 @@ class MoonPhaseWorker(
     }
 
     private val moonPhaseProvider: MoonPhaseProvider = MoonPhaseProviderFarmsense()
+    private lateinit var preferences: SharedPreferences
+
 
     override fun doWork(): Result {
         val appContext = applicationContext
 
-        // TODO: read user preferences from notification settings
-        val moonPhaseToNotify = MoonPhaseEnum.WANING_CRESCENT
+        initializePreferences(appContext)
+
+        val isNotificationEnabled = preferences.getBoolean(Preferences.Settings.IS_NOTIFICATION_ENABLED.name, false)
+        if (!isNotificationEnabled) return Result.success()
+
+        val moonPhaseToNotify = MoonPhaseEnum.valueOf(preferences.getInt(Preferences.Settings.MOON_PHASE_TO_NOTIFY.name, 0))
 
         return try {
             CoroutineScope(Dispatchers.Main).launch {
@@ -54,6 +61,10 @@ class MoonPhaseWorker(
             e.log(LOG_TAG)
             Result.failure()
         }
+    }
+
+    private fun initializePreferences(context: Context) {
+        preferences = context.getSharedPreferences(Preferences.NAME, Context.MODE_PRIVATE)
     }
 
     private fun createNotificationChannel(context: Context) {
