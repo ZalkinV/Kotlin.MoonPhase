@@ -1,5 +1,6 @@
 package com.itmo.moonphase
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -11,7 +12,7 @@ import kotlin.math.roundToInt
 
 class MoonPhaseAdapter(
     context: Context,
-    private val moonPhases: List<MoonPhaseInfo>,
+    private val moonPhases: MutableList<MoonPhaseInfo> = mutableListOf(),
 ) : RecyclerView.Adapter<MoonPhaseAdapter.MoonPhaseViewHolder>() {
 
     private val dateTimeFormatter = DateTimeFormatter.ofPattern(context.getString(R.string.moonPhase_dateTime_format))
@@ -31,6 +32,14 @@ class MoonPhaseAdapter(
 
     override fun getItemCount() = moonPhases.size
 
+    // How to update RecyclerView Adapter Data https://stackoverflow.com/questions/31367599/how-to-update-recyclerview-adapter-data
+    @SuppressLint("NotifyDataSetChanged")
+    fun update(newMoonPhases: Collection<MoonPhaseInfo>) {
+        moonPhases.clear()
+        moonPhases.addAll(newMoonPhases)
+        notifyDataSetChanged()
+    }
+
     class MoonPhaseViewHolder(
         private val binding: ListItemMoonPhaseBinding,
         private val dateTimeFormatter: DateTimeFormatter,
@@ -46,4 +55,5 @@ class MoonPhaseAdapter(
         } }
 
     }
+
 }

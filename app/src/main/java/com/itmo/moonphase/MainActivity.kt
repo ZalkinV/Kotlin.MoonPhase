@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private val moonPhaseProvider: MoonPhaseProvider = MoonPhaseProviderFarmsense()
+    private lateinit var moonPhaseAdapter: MoonPhaseAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,9 +40,7 @@ class MainActivity : AppCompatActivity() {
                 val currentDateTime = getDateTimeNow()
                 val moonPhases = moonPhaseProvider.getMoonPhases(currentDateTime, currentDateTime.plusDays(Consts.FORECAST_DURATION_DAYS))
 
-                runOnUiThread {
-                    binding.rvMoonPhases.adapter = MoonPhaseAdapter(baseContext, moonPhases)
-                }
+                moonPhaseAdapter.update(moonPhases)
             } catch (e: RuntimeException) {
                 e.log(LOG_TAG)
                 runOnUiThread {
@@ -51,12 +50,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun initializeComponents() {
+    private fun initializeComponents() = with(binding) {
+        moonPhaseAdapter = MoonPhaseAdapter(baseContext)
+
         // RecyclerView https://www.youtube.com/watch?v=cDF_yBCflXk
         // RecyclerView with ViewBinding https://dev.to/theimpulson/using-recyclerview-with-viewbinding-in-android-via-kotlin-1hgl
-        binding.rvMoonPhases.apply {
+        with(rvMoonPhases) {
             layoutManager = LinearLayoutManager(baseContext)
             setHasFixedSize(true)
+            adapter = moonPhaseAdapter
         }
     }
 
