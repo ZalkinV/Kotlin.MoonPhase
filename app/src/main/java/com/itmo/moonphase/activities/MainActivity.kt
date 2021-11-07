@@ -1,7 +1,10 @@
 package com.itmo.moonphase.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -70,6 +73,26 @@ class MainActivity : AppCompatActivity() {
 
         WorkManager.getInstance(baseContext)
             .enqueue(request)
+    }
+
+    // How to set menu to Toolbar in Android https://stackoverflow.com/a/50225618
+    // Menus https://developer.android.com/guide/topics/ui/menus#kotlin
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.main_options_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.menu_options_settings -> {
+            openSettingsActivity()
+            true
+        }
+        else -> super.onOptionsItemSelected(item)
+    }
+
+    private fun openSettingsActivity() {
+        val intent = Intent(baseContext, SettingsActivity::class.java)
+        startActivity(intent)
     }
 
 }

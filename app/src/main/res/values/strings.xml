@@ -21,6 +21,7 @@
     <string name="notification_title_format">%1$s has arrived!</string>
 
 
+    <string name="menu_options_settings">Settings</string>
     <string name="settings_notification_lbl_text">Notification configuration:</string>
     <string name="settings_notification_sm_text">Notify</string>
 </resources>
