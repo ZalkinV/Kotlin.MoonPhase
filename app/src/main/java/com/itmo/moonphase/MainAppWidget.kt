@@ -50,7 +50,7 @@ internal fun updateAppWidget(
 
         val moonPhase = moonPhases[0]
         views.setTextViewText(R.id.wd_tv_date, dateTimeFormatter.format(moonPhase.dateTime))
-        views.setImageViewResource(R.id.wd_img_moonPhase, MoonPhaseResource.getMoonPhaseResource(moonPhase.phase).imageId)
+        views.setImageViewResource(R.id.wd_img_moonPhase, moonPhase.phase.imageId)
 
         appWidgetManager.updateAppWidget(appWidgetId, views)
     }

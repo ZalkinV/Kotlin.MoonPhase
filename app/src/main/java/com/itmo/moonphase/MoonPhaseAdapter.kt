@@ -38,11 +38,8 @@ class MoonPhaseAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(moonPhaseInfo: MoonPhaseInfo) = binding.let { with(moonPhaseInfo) {
-            MoonPhaseResource.getMoonPhaseResource(phase).let { mpr ->
-                it.imgMoonPhase.setImageResource(mpr.imageId)
-                it.tvMoonPhaseName.text = it.root.context.getString(mpr.nameId)
-            }
-
+            it.imgMoonPhase.setImageResource(phase.imageId)
+            it.tvMoonPhaseName.text = it.root.context.getString(phase.nameId)
             it.tvMoonPhaseDate.text = dateTimeFormatter.format(dateTime)
             it.tvMoonPhaseAge.text = age.roundToInt().toString()
             it.tvMoonPhaseIllumination.text = percentFormatter.format(illumination)
