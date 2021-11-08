@@ -2,13 +2,16 @@ package com.itmo.moonphase.workers
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.itmo.moonphase.*
+import com.itmo.moonphase.activities.MainActivity
 import com.itmo.moonphase.api.farmsense.MoonPhaseProviderFarmsense
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -81,10 +84,20 @@ class MoonPhaseWorker(
         val contentTitle = context.getString(R.string.notification_title_format)
             .format(context.getString(moonPhase.phase.nameId))
 
+        // Notification click: activity already open https://stackoverflow.com/a/12043752
+        // Activity opened twice https://stackoverflow.com/a/16332324
+        val openAppIntent = PendingIntent.getActivity(
+            context,
+            0,
+            Intent(context, MainActivity::class.java)
+                .apply { flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP },
+            PendingIntent.FLAG_IMMUTABLE)
+
         val notification = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
             .setSmallIcon(moonPhase.phase.imageId)
             .setContentTitle(contentTitle)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setContentIntent(openAppIntent)
             .build()
 
         NotificationManagerCompat.from(context).notify(NOTIFICATION_ID, notification)
