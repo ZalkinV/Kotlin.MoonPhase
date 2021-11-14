@@ -8,6 +8,8 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.work.Constraints
+import androidx.work.NetworkType
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.itmo.moonphase.*
@@ -68,7 +70,12 @@ class MainActivity : AppCompatActivity() {
 
     // Define work requests: Schedule periodic work https://developer.android.com/topic/libraries/architecture/workmanager/how-to/define-work#schedule_periodic_work
     private fun initializeWorkers() {
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+
         val request = PeriodicWorkRequestBuilder<MoonPhaseWorker>(Consts.WORKER_PERIOD_HOURS, TimeUnit.HOURS)
+            .setConstraints(constraints)
             .build()
 
         WorkManager.getInstance(baseContext)
