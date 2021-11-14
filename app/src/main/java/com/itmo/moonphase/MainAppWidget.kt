@@ -26,10 +26,6 @@ class MainAppWidget : AppWidgetProvider() {
         }
     }
 
-    override fun onDisabled(context: Context?) {
-        super.onDisabled(context)
-    }
-
 }
 
 // Stackoverflow CoroutineScope in AppWidget https://stackoverflow.com/a/58972855
