@@ -4,4 +4,5 @@ object Consts {
     const val FORECAST_DURATION_DAYS = 30L
 
     const val WORKER_PERIOD_HOURS = 2L
+    const val WORKER_REQUEST_NAME = "MoonPhaseArrived"
 }
